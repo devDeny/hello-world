@@ -1,0 +1,76 @@
+import   javafx .stage .Stage ;
+import   javafx .application .Application ;
+import   javafx .scene .* ;
+import   javafx .scene .paint .* ;
+import   javafx .scene .layout .* ;
+// import   javafx .scene .control .* ;
+import   javafx .scene .canvas. * ;
+// import   javafx .geometry. * ;
+import   javafx .scene . shape. * ;
+
+public  
+  class ModelA  extends Application {
+
+    PieChar  pie=new  PieChar( );
+
+
+    public void start( Stage stage ) {
+	pie. initOwner( stage ) ;
+	pie. show( );
+	pie. setResizable( false );
+
+	AnchorPane  a=new AnchorPane( );
+	
+	Scene  sc=new  Scene( a );
+	stage .setScene( sc ) ;
+	// stage .show( );
+
+
+	pie .ratio( new int[]{ 5,3, 7,11, 3 } ) ;   // sample
+    }
+}
+
+
+class  PieChar  extends Stage {
+
+    Group  g= new Group( );
+    Canvas cv =new Canvas( 600,600 ) ;
+    GraphicsContext gc =null ;
+	
+    PieChar( ){ 
+
+	gc = cv .getGraphicsContext2D( );
+        Scene  sc= new Scene( g , 604, 640, Color.BLACK) ;
+	gc .setFill( Color. rgb( 255, 125, 0 ) );
+	gc .fillArc( 50,50, 500,500, 0, 120 , ArcType.ROUND );
+	
+	g .getChildren().add( cv ) ;
+	this .setScene( sc ) ;
+	// this .show( );	×
+    }
+    
+    public void ratio( int[]  g ){
+	double  sum=0 ;
+	for ( int x: g )  sum+= x; 
+	double[ ]  r = new double[ g.length ];
+	for ( int k=0 ; k < g.length ; k++  )
+		r[ k ] = g[ k ] / sum ;
+	
+	// gc .setFill( Color.BLACK ) ;  gc .fillOval( 50.0,50.0,  500,500 ) ;
+	double  d=90.0 , v=0.0 ;
+
+	int  c=0 ;
+	for ( double  z : r ) {
+		gc .setFill( bg[c] ) ;
+		v = -r[ c++ ]*360 ;
+		gc .fillArc( 50,50, 500,500, d , v, ArcType.ROUND ) ;
+		d += v ;
+	
+	}
+	gc .setStroke( Color.WHITE ) ;
+	gc .strokeText( " PIE  Chart " ,200, 580 );
+    }
+    Color[ ] bg= { Color.BLUE, Color.rgb(0,255,0) , Color.YELLOW, Color.FUCHSIA, Color.ORANGE };
+
+
+}
