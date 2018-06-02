@@ -1,0 +1,61 @@
+import  javafx .application. Application ;
+import  javafx .stage .Stage ;
+import  javafx .scene . * ;
+import  javafx .scene .paint .* ;
+import  javafx .scene .layout. * ;
+import  javafx .scene .control. * ;
+import  javafx .geometry .* ;
+import  javafx .event . * ;
+
+
+public 
+  class Hello-world^  extends Application {
+	
+	
+    public void start( Stage  stage ) {
+	Form1  f =new Form1(  ) ;
+	
+	stage .setScene( f ) ;
+	stage .show( );
+     }
+}
+
+
+class  Form1  extends Scene {
+   
+    String[ ] items ={ "name","id","address",  "phone","phone2","Line ID",  "a","b","c",  "d" } ;
+    TextField[ ]  columns =new  TextField[ items.length ] ;
+	
+	
+	Button  send =new Button( "  send  "), cancel =new Button( " cancel ");
+	
+    Form1 (  ) {
+	super( new GridPane() ) ;
+	GridPane p = (GridPane) this .getRoot( );
+	
+        for ( int k=0 ; k < items .length ;  k++ ) {
+    	    p .add( new Label( items[k ]  ) , 1, k+2 ) ;
+    	    columns[k] = new TextField( ) ;
+	    p .add(  columns[k] , 3, k+2 ) ;
+    	}
+	ComboBox  sex=new ComboBox( ) ;
+	sex .getItems(). addAll( "male", "female" ) ;
+	p .add( sex, 3, items.length+3 );
+	// HBox  b =new HBox( ) ; b .getChildren( ). addAll ( send, cancel );
+	p .add(  send , 3, items.length+5 ) ;
+	p. add(  cancel , 4 , items.length+5 ) ;
+	
+	p .setHgap( 50 ) ;
+	p .setVgap( 10 ) ;
+	p .setPadding(new Insets(25, 25, 25, 25));
+	
+	cancel .setOnAction( e ->  clear() ) ;
+    }	
+	
+	
+    void  clear( ){
+	for ( TextField  t : columns ) t .setText( "" ) ;
+    }
+
+}
+
